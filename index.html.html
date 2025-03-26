@@ -82,19 +82,28 @@ input, textarea {
 input::placeholder {
     color: rgba(255, 255, 255, 0.6); /* Adjust opacity to blend */
 }
-#nearest_city {
-    color: #888 !important; /* Match the other input fields */
+input, textarea {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Slightly visible background */
+    border: none !important;
+    color: rgba(0, 0, 0, 0.8) !important; /* Black but slightly blended */
     font-weight: bold;
     text-transform: uppercase;
 }
 
+input::placeholder {
+    color: rgba(0, 0, 0, 0.5) !important; /* Light black for placeholders */
+}
+
+#nearest_city {
+    color: rgba(0, 0, 0, 0.8) !important; /* Ensure city text is visible */
+}
+
 .pac-container {
-    background-color: white !important; /* Ensures the dropdown is visible */
-    color: black !important; /* Makes sure suggestions are readable */
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Ensures dropdown visibility */
 }
 
 .pac-item {
-    color: black !important; /* Ensures the suggested city names are visible */
+    color: black !important; /* Makes sure suggestions are readable */
 }
 
     }
