@@ -6,129 +6,221 @@
   <title>Sign Up Form</title>
   <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6Ty5ZHqoSA2jlyqnyi1c7HqLp6G8Ij7I&libraries=places"></script>
- <style>
-  body {
-    background-color: transparent;
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
-  .form-container {
-    max-width: 550px;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 0;
-  }
-  h2 {
-    color: #A33323;
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-  .form-container input {
-    width: 100%;
-    padding: 18px;
-    margin: 12px 0;
-     border: none; /* Removed border */
-    font-size: 16px;
-    font-weight: bold;
-    color: #888;
-    box-sizing: border-box;
-    border-radius: 0;
-    text-transform: uppercase;
-  }
-  .form-container input::placeholder {
-    color: #999;
-  }
-  .form-container button {
-    width: 20%;
-    padding: 20px;
-    background-color: #E98A7F;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: 0.3s;
-    border-radius: 25px;
-  }
-  .form-container button:hover {
-    background-color: #D65A50;
-  }
-  .form-text {
-    font-size: 12px;
-    color: #333;
-    margin-top: 15px;
-    padding-bottom: 0; /* Removed padding below */
-  }
-.form-container button {
-      width: 33%; /* Increased width */
-      padding: 16px;
-      background-color:   #c63527;
+  <style>
+    body {
+      background-color: transparent;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .form-container {
+      max-width: 550px;
+      margin: 0 auto;
+      text-align: center;
+      border-radius: 0;
+    }
+    h2 {
+      color: #A33323;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 18px;
+      margin: 1px 0;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: #888;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+	.form-container input {
+  border: 1px solid lightgray !important;
+}
+
+    .form-container input::placeholder {
+      color: #999;
+    }
+    .form-container button {
+      width: 33%;
+      padding: 10px;
+      background-color: #c63527;
       color: white;
       font-size: 20px;
       font-weight: bold;
-       border: none; 
+      border: none;
       cursor: pointer;
       margin-top: 10px;
       transition: 0.3s;
       border-radius: 95px;
-	   text-transform: uppercase;
-}
-input, textarea {
-    background-color: transparent !important;
-    border: none !important;
-    color: white !important; /* Adjust to match background */
-}
-input::placeholder {
-    color: rgba(255, 255, 255, 0.6); /* Adjust opacity to blend */
-}
-input, textarea {
-    background-color: rgba(255, 255, 255, 0.9) !important; /* Soft white background */
-    border: none !important;
-    color: rgba(0, 0, 0, 0.9) !important; /* Black text for readability */
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 12px;
-    border-radius: 5px;
-}
-
-input::placeholder {
-    color: rgba(0, 0, 0, 0.5) !important; /* Subtle black for placeholder */
-}
-
-#nearest_city {
-    color: rgba(0, 0, 0, 0.9) !important; /* Ensure selected city is visible */
-}
-
-.pac-container {
-    background-color: rgba(255, 255, 255, 1) !important; /* Ensure dropdown is readable */
-}
-
-.pac-item {
-    color: black !important; /* Keep suggestion text black */
-}
-
     }
     .form-container button:hover {
       background-color: #CC0000;
     }
-</style>
+    .form-text {
+      font-size: 12px;
+      color: #333;
+      margin-top: 15px;
+      padding-bottom: 0;
+    }
+    input, textarea {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      border: none !important;
+      color: rgba(0, 0, 0, 0.9) !important;
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 5px;
+    }
+    input::placeholder {
+      color: rgba(0, 0, 0, 0.5) !important;
+    }
+    #nearest_city {
+      color: rgba(0, 0, 0, 0.9) !important;
+    }
+    .pac-container {
+      background-color: rgba(255, 255, 255, 1) !important;
+    }
+    .pac-item {
+      color: black !important;
+    }
+    .popup {
+      position: relative; 
+      top: 0; 
+      margin-top: 2px; /* Space between button and popup */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      font-size: 9px;
+      border-radius: 100px;
+      display: none;
+      z-index: 1000;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    .popup.error {
+      background-color: #f44336;
+    }
+    .popup.success {
+      background-color: black;
+    }
+    /* Ensure labels are bold and left-aligned */
+    label {
+        font-weight: bold;
+        display: block; /* Ensures labels are on their own line */
+        text-align: left; /* Aligns text to the left */
+    }
+
+    /* Style the description text */
+    .description {
+        font-size: 0.8em; /* Slightly smaller font */
+        line-height: 1.5; /* Improve readability */
+        margin-top: 4px; /* Space between label and description */
+        margin-bottom: 4px; /* Space between description and input field */
+        color: #555; /* Slightly lighter text for better readability */
+        text-align: left; /* Ensures left alignment */
+    }
+
+    /* Ensure the form fields are properly spaced and aligned */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Add spacing between form elements */
+    }
+
+    /* Optional: Add some padding to the form container */
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto; /* Center the form */
+        padding: 15px;
+    }
+
+    /* Ensure labels are bold and left-aligned */
+    label {
+        font-weight: bold;
+        display: block;
+        text-align: left;
+    }
+
+    /* Style the description text */
+    .description {
+        font-size: 0.8em;
+        line-height: 1.5;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        color: #555;
+        text-align: left;
+    }
+	
+
+    /* Ensure the form fields are properly spaced and aligned */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    /* Center the button */
+    button {
+        align-self: center; /* Center the button horizontally */
+        padding: 10px 20px; /* Add padding to the button */
+        background-color: #007bff; /* Blue background color */
+        color: white; /* White text */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Slightly rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        font-size: 1em; /* Increase font size for readability */
+        margin-top: 18px; /* Space between the form elements and button */
+    }
+
+    /* Optional: Add hover effect for the button */
+    button:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+	  #custom_form label {
+        display: block;
+        margin-bottom: 3px; /* Reduced space below labels */
+    }
+    
+    #custom_form input {
+        margin-bottom: 8px; /* Reduced space between input fields */
+    }
+
+    #custom_form .description {
+        margin-bottom: 5px; /* Adjust spacing for the description */
+    }
+  </style>
 </head>
 <body>
   <div class="form-container">
     <form id="custom_form">
-      <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
-      <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      <input type="text" id="nearest_city" name="nearest_city" placeholder="Nearest City" required autocomplete="off">
-      <input type="hidden" id="guild_address_city" name="guild_address_city">
-      <input type="hidden" id="guild_address_state" name="guild_address_state">
-      <input type="hidden" id="guild_address_country" name="guild_address_country">
-      <input type="hidden" id="ip_address" name="ip_address"> 
-      <p class="form-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-      <button type="submit">Join</button>
+    <label for="firstname"><strong><span style="color: red;">*</span> First name</strong></label>
+    <input type="text" id="firstname" name="firstname" required>
+
+    <label for="lastname"><strong><span style="color: red;">*</span> Last name</strong></label>
+    <input type="text" id="lastname" name="lastname" required>
+
+    <label for="email"><strong><span style="color: red;">*</span> Your email address</strong></label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="nearest_city"><strong>Nearest city</strong></label>
+    <p class="description" style="font-size: 0.8em;">
+        We would like to share content and exclusive events relevant to your location. Please enter your nearest city below
+    </p>
+    <input type="text" id="nearest_city" name="nearest_city" required autocomplete="off">
+
+    <input type="hidden" id="guild_address_city" name="guild_address_city" style="text-transform: lowercase;">
+    <input type="hidden" id="guild_address_state" name="guild_address_state" style="text-transform: lowercase;">
+    <input type="hidden" id="guild_address_country" name="guild_address_country" style="text-transform: lowercase;">
+    <input type="hidden" id="ip_address" name="ip_address" style="text-transform: lowercase;">
+
+    <p class="form-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+    <button type="submit">Join</button>
     </form>
   </div>
+  <div id="popup" class="popup"></div>
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       fetch('https://api64.ipify.org?format=json')
@@ -174,6 +266,35 @@ input::placeholder {
         });
       }
 
+            // Function to capitalize first letter of each word
+      function capitalizeWords(input) {
+        input.value = input.value
+          .toLowerCase()
+          .replace(/\b\w/g, function(char) {
+            return char.toUpperCase();
+          });
+      }
+
+      // Auto-capitalize input fields
+      function applyCapitalization(selector) {
+        let inputs = document.querySelectorAll(selector);
+        inputs.forEach(input => {
+          input.addEventListener("input", function() {
+            capitalizeWords(this);
+          });
+
+          input.addEventListener("blur", function() {
+            capitalizeWords(this);
+          });
+
+          input.addEventListener("paste", function(event) {
+            setTimeout(() => capitalizeWords(this), 50);
+          });
+        });
+      }
+
+      applyCapitalization("#firstname, #lastname, #nearest_city");
+
       document.getElementById("custom_form").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -196,20 +317,35 @@ input::placeholder {
         })
         .then(response => response.json())
         .then(data => {
+          var popup = document.getElementById("popup");
           if (data.status === 'error') {
             console.error("HubSpot error:", data.message);
-            alert("There was an error submitting the form. Please try again later.");
+            popup.classList.add("error");
+            popup.textContent = "Submission failed. Try again.";
           } else {
-            alert("Form submitted successfully!");
-            document.getElementById("custom_form").reset();
+            popup.classList.remove("error");
+            popup.classList.add("success");
+            popup.textContent = "Form submitted successfully!";
           }
+          popup.style.display = "block";
+          setTimeout(function() {
+            popup.style.display = "none";
+          }, 3000); // Hide after 5 seconds
+
+          document.getElementById("custom_form").reset();
         })
         .catch(error => {
           console.error("Error submitting form:", error);
-          alert("There was an error submitting the form. Please try again later.");
+          var popup = document.getElementById("popup");
+          popup.classList.add("error");
+          popup.textContent = "Submission failed. Try again.";
+          popup.style.display = "block";
+          setTimeout(function() {
+            popup.style.display = "none";
+          }, 3000); // Hide after 5 seconds
         });
       });
     });
   </script>
-</body> 
+</body>
 </html>
